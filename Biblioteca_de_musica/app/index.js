@@ -1,12 +1,19 @@
-var express = require('express');
+var express = require('express'), session = require('express-session'), cookieParser = require('cookie-parser');
 var fs = require('fs');
-    
 
 var app = express();
 app.use(express.static(__dirname)); //__dir and not _dir
 var port = 8080; // you can use any port
-app.listen(port);
 console.log('Server running on port: ' + port);
+
+app.use(cookieParser());
+app.use(session({secret: 'IPO Internacional', resave: true, saveUninitialized: true}));
+
+app.get('/cambiaIdioma', function(req, res){
+    
+    session.idiomaId = req.query.idiomaId;
+
+});
 
 
 app.post('/getContenido', function(req, res){
@@ -18,8 +25,16 @@ app.post('/getContenido', function(req, res){
     })
 });
 
+app.post('/idioma', function(req, res){
+    console.log(session.idiomaId);
+    res.send(session.idiomaId)
+});
 
 
+
+
+
+app.listen(port);
 
 
 

@@ -61,5 +61,13 @@ function cambiaIdioma(event){
             console.log("No se ha podido obtener la información");
         }
     });
+
+    $.ajax({
+        url: '/cambiaIdioma',
+        data: {idiomaId: idioma}
+    });
+
+
+
     
 }
