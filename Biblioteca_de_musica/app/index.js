@@ -26,7 +26,7 @@ app.post('/getContenido', function(req, res){
 });
 
 app.post('/idioma', function(req, res){
-    console.log(session.idiomaId);
+    
     res.send(session.idiomaId)
 });
 

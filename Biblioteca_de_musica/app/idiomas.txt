@@ -1,22 +1,103 @@
 3
 es
-5
+32
 Idioma
 Español
 Biblioteca de música bienvenida
 Biblioteca de música
 Acceder a la Biblioteca de música
+Añadir
+Artista
+Año
+Duración
+Ver más
+Eliminar
+Editar
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
 en
-5
+16
 Lenguage
 English
 Music library welcome
 Music library
 Get access to music library
+Add
+Artist
+Year
+Duration
+See more
+Remove
+Edit
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
 ge
-5
+16
 Linguage
 Deutsche
 Musikbibliothek willkommen
 Musikbibliothek
 Erhalten Sie Zugriff auf die Musikbibliothek
+Hinzufügen
+Künstler
+Jahr
+Dauer
+Mehr sehen
+Entfernen
+Bearbeiten
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
+Do I Wanna Know?
+Artick Monkeys
+2013
+4:32
