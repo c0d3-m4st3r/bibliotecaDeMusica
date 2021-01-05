@@ -14,22 +14,77 @@
                 background-repeat: no-repeat;
                 height: 100%;
             }
+
         </style>
 
 
         <div class="dropdown">
-            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+            <a class="btn btn-danger" type="button" id="volverBoton" style="position: absolute; right: 10px;" href="index.html"></a>
+            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px"> 
             </button>
             <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="dropdownMenuButton">
             </div>
         </div>
+      
 
-        <div align="center">
-			<h1 style= "color:white;" id="titulo"></h1>
-		</div>
+        <div class="modal" tabindex="-1" id="modalAnadir">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="tituloModalAnadir"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombreCancionAnadir" id="labelNombreCancionAnadir"> </label>
+                        <input type="text" class="form-control" id="nombreCancionAnadir" placeholder="Despacito">
+                        <div class="alert alert-danger" role="alert" id="alertaNombre">
+                            El nombre de la cancion no puede estar vacío.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="artistaCancionAnadir" id="labelArtistaCancionAnadir"> </label>
+                        <input type="text" class="form-control" id="artistaCancionAnadir" placeholder="Luis Fonsi">
+                        <div class="alert alert-danger" role="alert" id="alertaArtista">
+                            El artista de la cancion no puede estar vacío.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="duracionCancionAnadir" id="labelDuracionCancionAnadir"></label>
+                        <input type="text" class="form-control" id="duracionCancionAnadir" placeholder="4:31">
+                        <div class="alert alert-danger" role="alert" id="alertaDuracion">
+                            La duración de la cancion no puede estar vacía.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="anoCancionAnadir" id="labelAnoCancionAnadir"></label>
+                        <input type="text" class="form-control" id="anoCancionAnadir" placeholder="2018">
+                        <div class="alert alert-danger" role="alert" id="alertaAno">
+                            El año de la cancion no puede estar vacío.
+                        </div>
+                    </div>    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarAnadir"></button>
+                  <button type="button" class="btn btn-danger" id="enviarAnadir"></button>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div align="center" style="margin-top: 30px;" >
+            <h1 style= "color:white;" id="titulo"></h1>
+            
+        </div>
+
+        <button class="btn btn-danger" type="button" id="anadir" style="margin-left: 10px; margin-top: 30px; margin-bottom: 30px;" data-toggle="modal" data-target="#modalAnadir"></button>
+        
+        
         
 
-        <div id="agrupamientoTarjetas">
+        <div id="agrupamientoTarjetas" style="margin-left: 10px; margin-right: 10px;">
 
 
         </div>

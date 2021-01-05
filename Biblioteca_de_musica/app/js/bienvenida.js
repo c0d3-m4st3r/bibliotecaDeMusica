@@ -7,26 +7,45 @@ $(function(){
 function getContent(){
     $.ajax({
         type: 'POST',
-        url: '/getContenido',
-        success: function(respuesta) {
-            var data = respuesta.split("\n");
-            $('#tituloNavegador').text(data[5]);
-            $('#dropdownMenuButton').text(data[3]);
-            $('#titulo').text(data[6]);
-            $('#accederBiblio').text(data[7]);
+        url: '/idioma',
+        success: function(response){
+            idioma = response;
 
-            var numeroIdiomas = parseInt(data[0]);
-            var posicion = 4;
-            for(var i = 0; i < numeroIdiomas; i++){
-                
-                var numPalabras = parseInt(data[2]);
-    
-                var cadenaAIntroducir = '<button class="dropdown-item" id="idioma'+ String(i) + '">'+ data[posicion] +'</a>'
-                $("#dropdownMenu").append(cadenaAIntroducir);
+            $.ajax({
+                type: 'POST',
+                url: '/getContenido',
+                success: function(respuesta) {
+                    var data = respuesta.split("\n");
 
-                posicion = posicion + numPalabras + 2;
-            }
+                    var numeroASumar = 0;
+                    var numPalabras = parseInt(data[2]);
+                    var numeroCanciones = (numPalabras-18)/4;
+                    var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+
+                    for(var i = 0; i < idioma ;i++){
+                        numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1; 
+                    }
+
+                    $('#tituloNavegador').text(data[5 + numeroASumar]);
+                    $('#dropdownMenuButton').text(data[3 + numeroASumar]);
+                    $('#titulo').text(data[6 + numeroASumar]);
+                    $('#accederBiblio').text(data[7 + numeroASumar]);
+
+                    var numeroIdiomas = parseInt(data[0]);
+                    var posicion = 4;
+                    for(var i = 0; i < numeroIdiomas; i++){
             
+                        var cadenaAIntroducir = '<button class="dropdown-item" id="idioma'+ String(i) + '">'+ data[posicion] +'</a>'
+                        $("#dropdownMenu").append(cadenaAIntroducir);
+
+                        posicion = posicion + numPalabras + 2 + numImagenes + 1;
+                    }
+                    
+                },
+                error: function() {
+                    console.log("No se ha podido obtener la información");
+                }
+            });
         },
         error: function() {
             console.log("No se ha podido obtener la información");
@@ -46,9 +65,12 @@ function cambiaIdioma(event){
             var data = respuesta.split("\n");
 
             var numeroASumar = 0;
+            var numeroCanciones = (numPalabras-18)/4;
+            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+
             for(var i = 0; i < idioma ;i++){
                 var numPalabras = parseInt(data[2]);
-                numeroASumar = numeroASumar + numPalabras + 2;
+                numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1;
                 
             }
 
@@ -66,8 +88,5 @@ function cambiaIdioma(event){
         url: '/cambiaIdioma',
         data: {idiomaId: idioma}
     });
-
-
-
-    
+  
 }

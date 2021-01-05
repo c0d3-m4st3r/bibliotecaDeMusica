@@ -1,7 +1,10 @@
 $(function(){
     getContent();
     $("body").on('click', '.dropdown-menu button', cambiaIdioma);
-    
+    $('#enviarAnadir').on('click', anadirCancion);
+    $("body").on('click', '.eliminarConfirmacion' ,eliminarCancion);
+    $("body").on('click', '.editarConfirmacion' ,modificar);
+    $("body").on('click', '.verMas' ,verMas);
 });
 
 function getContent(){
@@ -19,30 +22,41 @@ function getContent(){
         
                     var numeroASumar = 0;
                     var numPalabras = parseInt(data[2]);
+                    var numeroCanciones = (numPalabras-18)/4;
+                    var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+                    
+                    console.log(numImagenes);
 
                     for(var i = 0; i < idioma ;i++){
-                        numeroASumar = numeroASumar + numPalabras + 2; 
+                        numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1; 
                     }
         
                     $('#tituloNavegador').text(data[6 + numeroASumar]);
                     $('#dropdownMenuButton').text(data[3 + numeroASumar]);
                     $('#titulo').text(data[6 + numeroASumar]);
+                    $('#anadir').text(data[8 +numeroASumar]);
+
+                    $('#tituloModalAnadir').text(data[8 +numeroASumar]);
+
+                    $('#labelNombreCancionAnadir').text(data[11 + numeroASumar]);
+                    $('#labelArtistaCancionAnadir').text(data[12 + numeroASumar]);
+                    $('#labelDuracionCancionAnadir').text(data[14 + numeroASumar]);
+                    $('#labelAnoCancionAnadir').text(data[13 + numeroASumar]);
+
+                    $('#cerrarAnadir').text(data[18+numeroASumar]);
+                    $('#enviarAnadir').text(data[8+numeroASumar]);
 
                     var numeroIdiomas = parseInt(data[0]);
                     var posicion = 4;
                     for(var i = 0; i < numeroIdiomas; i++){
-                        
-                        var numPalabras = parseInt(data[2]);
             
                         var cadenaAIntroducir = '<button class="dropdown-item" id="idioma'+ String(i) + '">'+ data[posicion] +'</a>'
                         $("#dropdownMenu").append(cadenaAIntroducir);
 
-                        posicion = posicion + numPalabras + 2;
+                        posicion = posicion + numPalabras + 2 + numImagenes + 1;
                     }
 
-
-                    var numeroCanciones = (numPalabras-12)/4;
-                    console.log(numeroCanciones);
+                    
                     var contadorDeck = 0;
 
                     for(var i = 0; i < numeroCanciones ;i++){
@@ -53,29 +67,53 @@ function getContent(){
                             $('#agrupamientoTarjetas').append('</div><div class="card-deck" id="deck'+String(contadorDeck)+'">');
                             
                         }
-                        var cadenaAIntroducir = '<div class="card text-center text-white bg-danger mb-3" style="width:400px"> <img class="card-img-top" src=""><div class="card-body"><h4 class="card-title" id="tituloCancion'+ String(i) + '"></h4><p class="card-text" id="artista'+ String(i) + '"></p><p class="card-text" id="ano'+ String(i) + '"></p><p class="card-text" id="duracion'+ String(i) + '"></p><a href="#" class="btn btn-success verMas" id="verMas'+ String(i) + '"></a><button class="text-white btn btn-warning" id="modificar'+ String(i) + '"></button><button class="btn btn-secondary" id="eliminar'+ String(i) + '"></button></div></div>';
+
+                        var formularioModalEditar = '<div class="form-group"><label for="nombreCancionEditar'+ String(i) + '" id="labelNombreCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="nombreCancionEditar'+ String(i) + '" placeholder="Despacito"><div class="alert alert-danger" role="alert" id="alertaNombre'+ String(i) + '">El nombre de la cancion no puede estar vacío.</div></div><div class="form-group"><label for="artistaCancionEditar'+ String(i) + '" id="labelArtistaCancionEditar'+ String(i) + '">Artista </label><input type="text" class="form-control" id="artistaCancionEditar'+ String(i) + '" placeholder="Luis Fonsi"><div class="alert alert-danger" role="alert" id="alertaArtista'+ String(i) + '">El artista de la cancion no puede estar vacío.</div></div><div class="form-group"><label for="duracionCancionEditar'+ String(i) + '" id="labelDuracionCancionEditar'+ String(i) + '">Duracion</label><input type="text" class="form-control" id="duracionCancionEditar'+ String(i) + '" placeholder="4:31"><div class="alert alert-danger" role="alert" id="alertaDuracion'+ String(i) + '">La duración de la cancion no puede estar vacía.</div></div><div class="form-group"><label for="anoCancionEditar'+ String(i) + '" id="labelAnoCancionEditar'+ String(i) + '">Año</label><input type="text" class="form-control" id="anoCancionEditar'+ String(i) + '" placeholder="2018"><div class="alert alert-danger" role="alert" id="alertaAno'+ String(i) + '">El año de la cancion no puede estar vacío.</div></div>';  
+
+                        var modalEditar = '<div class="modal" tabindex="-1" id="editarModal'+ String(i) + '"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title tituloEditar" style="color: black;" id="tituloEditar'+ String(i) + '"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'+ formularioModalEditar +'</div><div class="modal-footer"><button type="button" class="btn btn-secondary cancelarEnviar" data-dismiss="modal" id="cancelarEnviar'+ String(i) +'"></button><button type="button" class="btn btn-danger editarConfirmacion" id="editarConfirmacion'+ String(i) + '"></button></div></div></div></div>';
+
+                        var cadenaAIntroducir = '<div class="card text-center text-white bg-danger mb-3" style="width:400px"> <img class="card-img-top" src=""><div class="card-body"><h4 class="card-title" id="tituloCancion'+ String(i) + '"></h4><p class="card-text" id="artista'+ String(i) + '"></p><p class="card-text" id="ano'+ String(i) + '"></p><p class="card-text" id="duracion'+ String(i) + '"></p><button type="button" class="btn btn-dark verMas" style="margin-right: 10px;" id="verMas'+ String(i) + '"></button><button class="text-white btn btn-info" style="margin-right: 10px;" id="modificar'+ String(i) + '" data-toggle="modal" data-target="#editarModal'+ String(i) + '"></button><button class="btn btn-secondary" id="eliminar'+ String(i) + '" data-toggle="modal" data-target="#eliminarModal'+ String(i) + '"></button> <div class="modal" tabindex="-1" id="eliminarModal'+ String(i) + '"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title tituloEliminar" style="color: black;" id="tituloEliminar'+ String(i) + '"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p class="deseaEliminar" style="color: black;" id="deseaEliminar'+ String(i) + '"></p></div><div class="modal-footer"><button type="button" class="btn btn-secondary cancelarEliminar" data-dismiss="modal" id="cancelarEliminar'+ String(i) + '"></button><button type="button" class="btn btn-danger eliminarConfirmacion" id="eliminarConfirmacion'+ String(i) + '"></button></div></div></div></div></div></div>' + modalEditar;
                         $('#deck' + String(contadorDeck)).append(cadenaAIntroducir);
                         
                     }
                     $('#agrupamientoTarjetas').append('</div>');
 
-                    contador = 15 + numeroASumar;
+                    contador = 21 + numeroASumar;
 
                     for(var i = 0; i < numeroCanciones ;i++){
                         
                         $("#tituloCancion"+ String(i)).text(data[contador]);
                         contador++;
-                        $("#artista"+ String(i)).text(data[9+numeroASumar]+':  '+data[contador]);
+                        $("#artista"+ String(i)).text(data[12+numeroASumar]+':  '+data[contador]);
                         contador++;
-                        $("#ano"+ String(i)).text(data[10+numeroASumar]+':  '+data[contador]);
+                        $("#ano"+ String(i)).text(data[13+numeroASumar]+':  '+data[contador]);
                         contador++;
-                        $("#duracion"+ String(i)).text(data[11+numeroASumar]+':  '+data[contador]);
+                        $("#duracion"+ String(i)).text(data[14+numeroASumar]+':  '+data[contador]);
                         contador++;
-                        $("#verMas"+ String(i)).text(data[12+numeroASumar]);
-                        $("#modificar"+ String(i)).text(data[14+numeroASumar]);
-                        $("#eliminar"+ String(i)).text(data[13+numeroASumar]);
+                        $("#verMas"+ String(i)).text(data[15+numeroASumar]);
+                        $("#modificar"+ String(i)).text(data[17+numeroASumar]);
+                        $("#eliminar"+ String(i)).text(data[16+numeroASumar]);
+                        $('#volverBoton').text(data[18 + numeroASumar]);
+
+                        $('#tituloEditar'+ String(i)).text(data[9+numeroASumar]);
+                        $('#labelNombreCancionEditar'+ String(i)).text(data[11+numeroASumar]);
+                        $('#labelArtistaCancionEditar'+ String(i)).text(data[12+numeroASumar]);
+                        $('#labelDuracionCancionEditar'+ String(i)).text(data[14+numeroASumar]);
+                        $('#labelAnoCancionEditar'+ String(i)).text(data[13+numeroASumar]);
+
+                        $('#cancelarEnviar'+String(i)).text(data[18+numeroASumar]);
+                        $('#editarConfirmacion'+String(i)).text(data[10+numeroASumar]);
+
+                        $('#tituloEliminar'+String(i)).text(data[19+numeroASumar]);
+                        $('#deseaEliminar'+String(i)).text(data[20+numeroASumar]);
+                        $('#cancelarEliminar'+String(i)).text(data[18+numeroASumar]);
+                        $('#eliminarConfirmacion'+String(i)).text(data[16+numeroASumar]);
+
+
 
                     }
+                    $('.alert').hide();
+                    
                     
                 },
                 error: function() {
@@ -93,9 +131,6 @@ function getContent(){
 function cambiaIdioma(event){
     var idioma = parseInt(event.target.id.substr(6));
 
-    console.log(idioma);
-    
-
     $.ajax({
         type: 'POST',
         url: '/getContenido',
@@ -104,38 +139,64 @@ function cambiaIdioma(event){
 
             var numeroASumar = 0;
             var numPalabras = parseInt(data[2]);
+            var numeroCanciones = (numPalabras-18)/4;
+            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
 
             for(var i = 0; i < idioma ;i++){
-                console.log(numPalabras);
-                numeroASumar = numeroASumar + numPalabras + 2;
+                numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1;
                 
             }
 
             $('#tituloNavegador').text(data[5 + numeroASumar]);
             $('#dropdownMenuButton').text(data[3 + numeroASumar]);
             $('#titulo').text(data[6 + numeroASumar]);
-            $('#accederBiblio').text(data[7 + numeroASumar]);       
+            $('#anadir').text(data[8 +numeroASumar]);  
             
-            var numeroCanciones = (numPalabras-12)/4;
+            $('#tituloModalAnadir').text(data[8 +numeroASumar]);
+
+            $('#labelNombreCancionAnadir').text(data[11 + numeroASumar]);
+            $('#labelArtistaCancionAnadir').text(data[12 + numeroASumar]);
+            $('#labelDuracionCancionAnadir').text(data[14 + numeroASumar]);
+            $('#labelAnoCancionAnadir').text(data[13 + numeroASumar]);
+
+            $('#cerrarAnadir').text(data[18+numeroASumar]);
+            $('#enviarAnadir').text(data[8+numeroASumar]);
             
-            contador = 15 + numeroASumar;
+            contador = 21 + numeroASumar;
 
             for(var i = 0; i < numeroCanciones ;i++){
-                console.log(data[9+numeroASumar]);
+                
                         
                 $("#tituloCancion"+ String(i)).text(data[contador]);
                 contador++;
-                $("#artista"+ String(i)).text(data[9+numeroASumar]+':  '+data[contador]);
+                $("#artista"+ String(i)).text(data[12+numeroASumar]+':  '+data[contador]);
                 contador++;
-                $("#ano"+ String(i)).text(data[10+numeroASumar]+':  '+data[contador]);
+                $("#ano"+ String(i)).text(data[13+numeroASumar]+':  '+data[contador]);
                 contador++;
-                $("#duracion"+ String(i)).text(data[11+numeroASumar]+':  '+data[contador]);
+                $("#duracion"+ String(i)).text(data[14+numeroASumar]+':  '+data[contador]);
                 contador++;
-                $("#verMas"+ String(i)).text(data[12+numeroASumar]);
-                $("#modificar"+ String(i)).text(data[14+numeroASumar]);
-                $("#eliminar"+ String(i)).text(data[13+numeroASumar]);
+                $("#verMas"+ String(i)).text(data[15+numeroASumar]);
+                $("#modificar"+ String(i)).text(data[17+numeroASumar]);
+                $("#eliminar"+ String(i)).text(data[16+numeroASumar]);
+                $('#volverBoton').text(data[18 + numeroASumar]);
+
+                $('#tituloEditar'+ String(i)).text(data[9+numeroASumar]);
+                $('#labelNombreCancionEditar'+ String(i)).text(data[11+numeroASumar]);
+                $('#labelArtistaCancionEditar'+ String(i)).text(data[12+numeroASumar]);
+                $('#labelDuracionCancionEditar'+ String(i)).text(data[14+numeroASumar]);
+                $('#labelAnoCancionEditar'+ String(i)).text(data[13+numeroASumar]);
+
+                $('#cancelarEnviar'+String(i)).text(data[18+numeroASumar]);
+                $('#editarConfirmacion'+String(i)).text(data[10+numeroASumar]);
+
+                $('#tituloEliminar'+String(i)).text(data[19+numeroASumar]);
+                $('#deseaEliminar'+String(i)).text(data[20+numeroASumar]);
+                $('#cancelarEliminar'+String(i)).text(data[18+numeroASumar]);
+                $('#eliminarConfirmacion'+String(i)).text(data[16+numeroASumar]);
 
             }
+
+            $('.alert').hide();
 
         },
         error: function() {
@@ -147,5 +208,125 @@ function cambiaIdioma(event){
         url: '/cambiaIdioma',
         data: {idiomaId: idioma}
     });
-    
+}
+
+function anadirCancion(){
+    var seEnvia = true;
+
+    if(!$('#nombreCancionAnadir').val()){
+        $('#alertaNombre').show();
+        seEnvia = false;
+    }
+
+    if(!$('#artistaCancionAnadir').val()){
+        $('#alertaArtista').show();
+        seEnvia = false;
+    }
+
+    if(!$('#duracionCancionAnadir').val()){
+        $('#alertaDuracion').show();
+        seEnvia = false;
+    }
+    if(!$('#anoCancionAnadir').val()){
+        $('#alertaAno').show();
+        seEnvia = false;
+    }
+
+    if(seEnvia){
+        $.ajax({
+            url: '/guardaCancion',
+            data: { nombre: $('#nombreCancionAnadir').val(),
+                    artista: $('#artistaCancionAnadir').val(),
+                    duracion: $('#duracionCancionAnadir').val(),
+                    ano: $('#anoCancionAnadir').val()},
+            success: function(res){
+                if(res == 'ok'){
+                    location.reload();
+                }
+            },error: function() {
+                console.log("No se ha podido enviar la información");
+            }
+        });
+    }
+}
+
+function eliminarCancion(event){
+    var cancion = parseInt(event.target.id.substr(20));
+    console.log(cancion);
+
+    $.ajax({
+        url: '/eliminarCancion',
+        data: { idCancion: cancion },
+        success: function(res){
+            if(res == 'ok'){
+                location.reload();
+            }
+        },error: function() {
+            console.log("No se ha podido enviar la información");
+        }
+    });
+
+}
+
+function verMas(event){
+    var cancion = parseInt(event.target.id.substr(6));
+
+    $.ajax({
+        url: '/verMas',
+        data: { idCancion: cancion },
+        success: function(res){
+            if(res == 'ok'){
+                window.location.href = "http://localhost:8080/verMas.html";
+            }
+        },error: function() {
+            console.log("No se ha podido enviar la información");
+        }
+    });
+
+}
+
+function modificar(event){
+    var cancion = parseInt(event.target.id.substr(18));
+
+    var seEnvia = true;
+
+    if(!$('#nombreCancionEditar'+String(cancion)).val()){
+        $('#alertaNombre'+String(cancion)).show();
+        seEnvia = false;
+    }
+
+    if(!$('#artistaCancionEditar'+String(cancion)).val()){
+        $('#alertaArtista'+String(cancion)).show();
+        seEnvia = false;
+    }
+
+    if(!$('#duracionCancionEditar'+String(cancion)).val()){
+        $('#alertaDuracion'+String(cancion)).show();
+        seEnvia = false;
+    }
+    if(!$('#anoCancionEditar'+String(cancion)).val()){
+        $('#alertaAno'+String(cancion)).show();
+        seEnvia = false;
+    }
+
+
+
+    if(seEnvia){
+        $.ajax({
+            url: '/editarCancion',
+            data: { nombre: $('#nombreCancionEditar'+String(cancion)).val(),
+                    artista: $('#artistaCancionEditar'+String(cancion)).val(),
+                    duracion: $('#duracionCancionEditar'+String(cancion)).val(),
+                    ano: $('#anoCancionEditar'+String(cancion)).val(),
+                    idCancion: cancion},
+            success: function(res){
+                if(res == 'ok'){
+                    location.reload();
+                }
+            },error: function() {
+                console.log("No se ha podido enviar la información");
+            }
+        });
+    }
+
 }

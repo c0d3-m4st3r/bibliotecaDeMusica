@@ -1,103 +1,109 @@
 3
 es
-32
+30
 Idioma
 Español
 Biblioteca de música bienvenida
 Biblioteca de música
 Acceder a la Biblioteca de música
-Añadir
+Añadir Canción
+Editar Canción
+Enviar modificacion
+Nombre
 Artista
 Año
 Duración
 Ver más
 Eliminar
 Editar
+Volver
+Eliminar cancion
+¿Desea eliminar la canción?
 Do I Wanna Know?
 Artick Monkeys
 2013
 4:32
-Do I Wanna Know?
-Artick Monkeys
+Half light
+Wilkinson, Tom Cane
 2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
+4:39
+Veneno
+Delaossa
+2020
+4:19
+3
+/img/doIWannaKnowEspanol.jpg
+/img/halfLightEspanol.jpg
+/img/venenoDelaossaEspanol.jpg
 en
-16
+30
 Lenguage
 English
 Music library welcome
 Music library
 Get access to music library
-Add
+Add Song
+Edit Song
+Send modification
+Name
 Artist
 Year
 Duration
 See more
 Remove
 Edit
+Return
+Delete song
+Do you want to delete the song?
 Do I Wanna Know?
 Artick Monkeys
 2013
 4:32
-Do I Wanna Know?
-Artick Monkeys
+Half light
+Wilkinson, Tom Cane
 2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
+4:39
+Veneno
+Delaossa
+2020
+4:18
+3
+/img/doIWannaKnowEnglish.jpg
+/img/halfLightEnglish.jpg
+/img/venenoDelaossaEnglish.jpg
 ge
-16
+30
 Linguage
 Deutsche
 Musikbibliothek willkommen
 Musikbibliothek
 Erhalten Sie Zugriff auf die Musikbibliothek
-Hinzufügen
+Hinzufügen Lied
+Song bearbeiten
+Änderung senden
+Name
 Künstler
 Jahr
 Dauer
 Mehr sehen
 Entfernen
 Bearbeiten
+Rückkehr
+Lied löschen
+Möchten Sie das Lied löschen?
 Do I Wanna Know?
 Artick Monkeys
 2013
 4:32
-Do I Wanna Know?
-Artick Monkeys
+Half light
+Wilkinson, Tom Cane
 2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
-Do I Wanna Know?
-Artick Monkeys
-2013
-4:32
+4:39
+Veneno
+Delaossa
+2020
+4:18
+3
+/img/doIWannaKnowEnglish.jpg
+/img/halfLightEnglish.jpg
+/img/venenoDelaossaEnglish.jpg
