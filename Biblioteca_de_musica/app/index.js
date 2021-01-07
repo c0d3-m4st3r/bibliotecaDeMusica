@@ -11,7 +11,7 @@ app.use(session({secret: 'IPO Internacional', resave: true, saveUninitialized: t
 
 app.get('/cambiaIdioma', function(req, res){
     
-    session.idiomaId = req.query.idiomaId;
+    session.idiomaId = parseInt(req.query.idiomaId);
 
 });
 
@@ -20,7 +20,6 @@ app.post('/getContenido', function(req, res){
     fs.readFile('idiomas.txt','utf-8', function(err, data){
         if(err) throw err;
         else{
-            var newData = data.split("\n");
             
             res.send(data);
             
@@ -29,8 +28,8 @@ app.post('/getContenido', function(req, res){
 });
 
 app.post('/idioma', function(req, res){
-    
-    res.send(session.idiomaId)
+
+    res.send({idiomaId : session.idiomaId})
 });
 
 app.get('/guardaCancion', function(req, res){
@@ -41,11 +40,11 @@ app.get('/guardaCancion', function(req, res){
             let newData = data.split("\n");
             var numPalabras = parseInt(newData[2]);
             var numeroIdiomas = parseInt(newData[0]);
-            var numeroCanciones = (numPalabras - 18)/4;
-            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
-
+            var numeroCanciones = (numPalabras - 22)/4;
+            var numImagenes = parseInt(newData[25 + numeroCanciones * 4]);
             
-            posicion = 21;
+            
+            posicion = 25 + numeroCanciones * 4;
 
             for(var i = 0; i < numeroIdiomas; i++){
                 newData.push('');
@@ -66,7 +65,10 @@ app.get('/guardaCancion', function(req, res){
                 newData[posicion + 3] = req.query.duracion;
                 newData[posicion + 2] = req.query.ano;
 
+                console.log(numImagenes);
+
                 posicion = posicion + numPalabras + 6 + numImagenes + 1;
+                
             }
 
             var stringAIntroducir = '';
@@ -93,9 +95,6 @@ app.get('/guardaCancion', function(req, res){
             
         }
     });
-    
-    
-    console.log(req.query.nombre, req.query.artista, req.query.duracion, req.query.ano);
 
     res.send('ok');
 
@@ -110,11 +109,11 @@ app.get('/eliminarCancion', function(req, res){
             let newData = data.split("\n");
             var numPalabras = parseInt(newData[2]);
             var numeroIdiomas = parseInt(newData[0]);
-            var numeroCanciones = (numPalabras - 13)/4;
-            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+            var numeroCanciones = (numPalabras - 22)/4;
+            var numImagenes = parseInt(newData[25 + numeroCanciones * 4]);
 
-            let cancion = req.query.idCancion;
-            posicion = 21 + cancion*4;
+            let cancion = parseInt(req.query.idCancion);
+            posicion = 25 + cancion*4;
 
             for(var i = 0; i < numeroIdiomas; i++){
                 
@@ -127,7 +126,27 @@ app.get('/eliminarCancion', function(req, res){
                     newData.pop();
                 }
 
+
                 posicion = posicion + numPalabras - 2 + numImagenes + 1;
+            }
+
+            if(cancion < numImagenes){
+                posicion = 25 + ((numeroCanciones-1)* 4)  + cancion + 1;
+
+                for(var i = 0; i < numeroIdiomas; i++){
+                    
+                    var tamano = newData.length;
+                    
+                    for(var k = 0; k < 1; k++){
+                        for(var j = posicion; j < tamano - 1; j++){
+                                newData[j] = newData[j + 1];
+                        }
+                        newData.pop();
+                    }
+                    
+
+                    posicion = posicion + numPalabras - 3 + numImagenes + 1;
+                }
             }
 
             var stringAIntroducir = '';
@@ -138,8 +157,11 @@ app.get('/eliminarCancion', function(req, res){
                 if(i == 0){
                     stringAIntroducir = stringAIntroducir + newData[i];
                 }else if(i == 2 || newData[i] == newData[2]){
-                    stringAIntroducir = stringAIntroducir + '\n' + String(parseInt(newData[2]) - 4);
+                    stringAIntroducir = stringAIntroducir + '\n' + String(numPalabras - 4);
                 }else if(!newData[i]){
+                
+                }else if(newData[i] == newData[25+(numeroCanciones-1)*4] && cancion < numImagenes){
+                    stringAIntroducir = stringAIntroducir + '\n' + String(numImagenes - 1);
 
                 }else{
                     stringAIntroducir = stringAIntroducir + '\n' + newData[i];
@@ -167,11 +189,12 @@ app.get('/editarCancion', function(req, res){
             let newData = data.split("\n");
             var numPalabras = parseInt(newData[2]);
             var numeroIdiomas = parseInt(newData[0]);
-            var numeroCanciones = (numPalabras - 13)/4;
-            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+            var numeroCanciones = (numPalabras - 22)/4;
+            var numImagenes = parseInt(newData[25 + numeroCanciones * 4]);
 
-            let cancion = req.query.idCancion;
-            posicion = 21 + cancion*4;
+
+            let cancion = parseInt(req.query.idCancion);
+            posicion = 25 + cancion*4;
 
             for(var i = 0; i < numeroIdiomas; i++){
                 
@@ -179,7 +202,6 @@ app.get('/editarCancion', function(req, res){
                 newData[posicion+1] = req.query.artista;
                 newData[posicion+3] = req.query.duracion;
                 newData[posicion+2] = req.query.ano;
-
                 posicion = posicion + numPalabras + 2 + numImagenes + 1;
             }
 

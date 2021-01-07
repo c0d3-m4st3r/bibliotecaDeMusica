@@ -9,7 +9,8 @@ function getContent(){
         type: 'POST',
         url: '/idioma',
         success: function(response){
-            idioma = response;
+            var idioma = parseInt(response.idiomaId);
+            console.log(idioma);
 
             $.ajax({
                 type: 'POST',
@@ -19,8 +20,8 @@ function getContent(){
 
                     var numeroASumar = 0;
                     var numPalabras = parseInt(data[2]);
-                    var numeroCanciones = (numPalabras-18)/4;
-                    var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+                    var numeroCanciones = (numPalabras-22)/4;
+                    var numImagenes = parseInt(data[25 + numeroCanciones * 4]);
 
                     for(var i = 0; i < idioma ;i++){
                         numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1; 
@@ -65,11 +66,13 @@ function cambiaIdioma(event){
             var data = respuesta.split("\n");
 
             var numeroASumar = 0;
-            var numeroCanciones = (numPalabras-18)/4;
-            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+            var numPalabras = parseInt(data[2]);
+            var numeroCanciones = (numPalabras-22)/4;
+            var numImagenes = parseInt(data[25 + numeroCanciones * 4]);
+            
 
             for(var i = 0; i < idioma ;i++){
-                var numPalabras = parseInt(data[2]);
+                
                 numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1;
                 
             }

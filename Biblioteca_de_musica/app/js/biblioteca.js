@@ -12,7 +12,7 @@ function getContent(){
         type: 'POST',
         url: '/idioma',
         success: function(response){
-            idioma = response;
+            var idioma = parseInt(response.idiomaId);
 
             $.ajax({
                 type: 'POST',
@@ -22,8 +22,8 @@ function getContent(){
         
                     var numeroASumar = 0;
                     var numPalabras = parseInt(data[2]);
-                    var numeroCanciones = (numPalabras-18)/4;
-                    var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+                    var numeroCanciones = (numPalabras-22)/4;
+                    var numImagenes = parseInt(data[25 + numeroCanciones * 4]);
                     
                     console.log(numImagenes);
 
@@ -45,6 +45,11 @@ function getContent(){
 
                     $('#cerrarAnadir').text(data[18+numeroASumar]);
                     $('#enviarAnadir').text(data[8+numeroASumar]);
+
+                    $('#alertaNombre').text(data[21 + numeroASumar]);
+                    $('#alertaArtista').text(data[22 + numeroASumar]);
+                    $('#alertaDuracion').text(data[23 + numeroASumar]);
+                    $('#alertaAno').text(data[24 + numeroASumar]);
 
                     var numeroIdiomas = parseInt(data[0]);
                     var posicion = 4;
@@ -68,7 +73,7 @@ function getContent(){
                             
                         }
 
-                        var formularioModalEditar = '<div class="form-group"><label for="nombreCancionEditar'+ String(i) + '" id="labelNombreCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="nombreCancionEditar'+ String(i) + '" placeholder="Despacito"><div class="alert alert-danger" role="alert" id="alertaNombre'+ String(i) + '">El nombre de la cancion no puede estar vacío.</div></div><div class="form-group"><label for="artistaCancionEditar'+ String(i) + '" id="labelArtistaCancionEditar'+ String(i) + '">Artista </label><input type="text" class="form-control" id="artistaCancionEditar'+ String(i) + '" placeholder="Luis Fonsi"><div class="alert alert-danger" role="alert" id="alertaArtista'+ String(i) + '">El artista de la cancion no puede estar vacío.</div></div><div class="form-group"><label for="duracionCancionEditar'+ String(i) + '" id="labelDuracionCancionEditar'+ String(i) + '">Duracion</label><input type="text" class="form-control" id="duracionCancionEditar'+ String(i) + '" placeholder="4:31"><div class="alert alert-danger" role="alert" id="alertaDuracion'+ String(i) + '">La duración de la cancion no puede estar vacía.</div></div><div class="form-group"><label for="anoCancionEditar'+ String(i) + '" id="labelAnoCancionEditar'+ String(i) + '">Año</label><input type="text" class="form-control" id="anoCancionEditar'+ String(i) + '" placeholder="2018"><div class="alert alert-danger" role="alert" id="alertaAno'+ String(i) + '">El año de la cancion no puede estar vacío.</div></div>';  
+                        var formularioModalEditar = '<div class="form-group"><label for="nombreCancionEditar'+ String(i) + '" id="labelNombreCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="nombreCancionEditar'+ String(i) + '" placeholder="Despacito"><div class="alert alert-danger" role="alert" id="alertaNombre'+ String(i) + '"></div></div><div class="form-group"><label for="artistaCancionEditar'+ String(i) + '" id="labelArtistaCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="artistaCancionEditar'+ String(i) + '" placeholder="Luis Fonsi"><div class="alert alert-danger" role="alert" id="alertaArtista'+ String(i) + '"></div></div><div class="form-group"><label for="duracionCancionEditar'+ String(i) + '" id="labelDuracionCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="duracionCancionEditar'+ String(i) + '" placeholder="4:31"><div class="alert alert-danger" role="alert" id="alertaDuracion'+ String(i) + '"></div></div><div class="form-group"><label for="anoCancionEditar'+ String(i) + '" id="labelAnoCancionEditar'+ String(i) + '"></label><input type="text" class="form-control" id="anoCancionEditar'+ String(i) + '" placeholder="2018"><div class="alert alert-danger" role="alert" id="alertaAno'+ String(i) + '"></div></div>';  
 
                         var modalEditar = '<div class="modal" tabindex="-1" id="editarModal'+ String(i) + '"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title tituloEditar" style="color: black;" id="tituloEditar'+ String(i) + '"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'+ formularioModalEditar +'</div><div class="modal-footer"><button type="button" class="btn btn-secondary cancelarEnviar" data-dismiss="modal" id="cancelarEnviar'+ String(i) +'"></button><button type="button" class="btn btn-danger editarConfirmacion" id="editarConfirmacion'+ String(i) + '"></button></div></div></div></div>';
 
@@ -78,7 +83,7 @@ function getContent(){
                     }
                     $('#agrupamientoTarjetas').append('</div>');
 
-                    contador = 21 + numeroASumar;
+                    contador = 25 + numeroASumar;
 
                     for(var i = 0; i < numeroCanciones ;i++){
                         
@@ -103,6 +108,11 @@ function getContent(){
 
                         $('#cancelarEnviar'+String(i)).text(data[18+numeroASumar]);
                         $('#editarConfirmacion'+String(i)).text(data[10+numeroASumar]);
+
+                        $('#alertaNombre'+String(i)).text(data[21 + numeroASumar]);
+                        $('#alertaArtista'+String(i)).text(data[22 + numeroASumar]);
+                        $('#alertaDuracion'+String(i)).text(data[23 + numeroASumar]);
+                        $('#alertaAno'+String(i)).text(data[24 + numeroASumar]);
 
                         $('#tituloEliminar'+String(i)).text(data[19+numeroASumar]);
                         $('#deseaEliminar'+String(i)).text(data[20+numeroASumar]);
@@ -139,8 +149,8 @@ function cambiaIdioma(event){
 
             var numeroASumar = 0;
             var numPalabras = parseInt(data[2]);
-            var numeroCanciones = (numPalabras-18)/4;
-            var numImagenes = parseInt(data[21 + numeroCanciones * 4]);
+            var numeroCanciones = (numPalabras-22)/4;
+            var numImagenes = parseInt(data[25 + numeroCanciones * 4]);
 
             for(var i = 0; i < idioma ;i++){
                 numeroASumar = numeroASumar + numPalabras + 2 + numImagenes + 1;
@@ -161,8 +171,13 @@ function cambiaIdioma(event){
 
             $('#cerrarAnadir').text(data[18+numeroASumar]);
             $('#enviarAnadir').text(data[8+numeroASumar]);
+
+            $('#alertaNombre').text(data[21 + numeroASumar]);        
+            $('#alertaArtista').text(data[22 + numeroASumar]);
+            $('#alertaDuracion').text(data[23 + numeroASumar]);
+            $('#alertaAno').text(data[24 + numeroASumar]);
             
-            contador = 21 + numeroASumar;
+            contador = 25 + numeroASumar;
 
             for(var i = 0; i < numeroCanciones ;i++){
                 
@@ -193,6 +208,11 @@ function cambiaIdioma(event){
                 $('#deseaEliminar'+String(i)).text(data[20+numeroASumar]);
                 $('#cancelarEliminar'+String(i)).text(data[18+numeroASumar]);
                 $('#eliminarConfirmacion'+String(i)).text(data[16+numeroASumar]);
+
+                $('#alertaNombre'+String(i)).text(data[21 + numeroASumar]);
+                $('#alertaArtista'+String(i)).text(data[22 + numeroASumar]);
+                $('#alertaDuracion'+String(i)).text(data[23 + numeroASumar]);
+                $('#alertaAno'+String(i)).text(data[24 + numeroASumar]);
 
             }
 

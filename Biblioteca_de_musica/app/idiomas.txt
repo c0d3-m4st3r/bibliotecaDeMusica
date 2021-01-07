@@ -1,6 +1,6 @@
 3
 es
-30
+34
 Idioma
 Español
 Biblioteca de música bienvenida
@@ -19,6 +19,10 @@ Editar
 Volver
 Eliminar cancion
 ¿Desea eliminar la canción?
+El nombre de la cancion no puede estar vacío.
+El artista de la cancion no puede estar vacío.
+La duración de la cancion no puede estar vacía.
+El año de la cancion no puede estar vacío.
 Do I Wanna Know?
 Artick Monkeys
 2013
@@ -36,7 +40,7 @@ Delaossa
 /img/halfLightEspanol.jpg
 /img/venenoDelaossaEspanol.jpg
 en
-30
+34
 Lenguage
 English
 Music library welcome
@@ -55,6 +59,10 @@ Edit
 Return
 Delete song
 Do you want to delete the song?
+The name of the song cannot be empty.
+The artist of the song cannot be empty.
+The song duration cannot be empty.
+The year of the song cannot be empty.
 Do I Wanna Know?
 Artick Monkeys
 2013
@@ -72,7 +80,7 @@ Delaossa
 /img/halfLightEnglish.jpg
 /img/venenoDelaossaEnglish.jpg
 ge
-30
+34
 Linguage
 Deutsche
 Musikbibliothek willkommen
@@ -91,6 +99,10 @@ Bearbeiten
 Rückkehr
 Lied löschen
 Möchten Sie das Lied löschen?
+Der Name des Songs darf nicht leer sein.
+Der Künstler des Songs kann nicht leer sein.
+Die Songdauer darf nicht leer sein.
+Das Jahr des Liedes kann nicht leer sein.
 Do I Wanna Know?
 Artick Monkeys
 2013
@@ -104,6 +116,6 @@ Delaossa
 2020
 4:18
 3
-/img/doIWannaKnowEnglish.jpg
-/img/halfLightEnglish.jpg
-/img/venenoDelaossaEnglish.jpg
+/img/doIWannaKnowGerman.jpg
+/img/halfLightGerman.jpg
+/img/venenoDelaossaGerman.jpg
